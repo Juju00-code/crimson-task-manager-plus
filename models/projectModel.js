@@ -15,7 +15,7 @@ const Schema = mongoose.Schema
         },
 
         //addedBy 
-        managers:{
+        manager:{
             type: Schema.Types.ObjectId,
 			//required: true,
 			ref: "User",
@@ -30,7 +30,7 @@ const Schema = mongoose.Schema
             ref:"Task"
         },
 
-        Status:{
+        status:{
             type: String,
             default:"Pending",
             required:true,
