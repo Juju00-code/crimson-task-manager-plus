@@ -1,4 +1,6 @@
-const cloudinary = require("cloudinary")
+const cloudinary = require("cloudinary").v2
+const fs = require("fs")
+require("dotenv").config()
 
 cloudinary.config({
 	cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -6,13 +8,12 @@ cloudinary.config({
 	api_secret: process.env.CLOUDINARY_API_SECRET,
 })
 
-const cloudinaryUpload = async (pathToFile) => {
+const cloudinaryUpload = async (pathToFile,folderName) => {
 	try {
-		const result = await cloudinary.UploadStream.upload(pathToFile, {
-			folder: invoicePlus,
+		const result = await cloudinary.uploader.upload(pathToFile, {
+			folder: folderName,
 		})
 		fs.unlinkSync(pathToFile)
-
 		return result
 	} catch (error) {
 		console.log("failed to upload file", error)

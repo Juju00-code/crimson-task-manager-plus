@@ -1,52 +1,63 @@
 const mongoose = require("mongoose")
 const validator = require("validator")
+const Schema = mongoose.Schema
 
 const userSchema = new mongoose.Schema(
     {
-        firstname :{
+        firstName :{
             type:String,
             required:true,
             trim:true,
-            validate : [validator.isAlphanumeric,"First Name must only contain letters and numbers and it is required"]
+            //validate : [validator.isAlphanumeric,"First Name must only contain letters and numbers and it is required"]
             
         },
 
-        lastname: {
+        lastName: {
 			type: String,
 			required: true,
 			trim: true,
-			validate: [
+			/*validate: [
 				validator.isAlphanumeric,
 				"Last Name must only contain letters and numbers and it is required",
-			],
+			],*/
 		},
 
         email: {
 			type: String,
 			required: true,
 			trim: true,
-			unique: true,
+			//unique: true,
 			lowercase: true,
-			validate: [validator.isEmail, "Please provide a valid email"],
-            TODO
-            //Validate according to organization suffix i.e"@crimson.com"
+			//validate: [validator.isEmail, "Please provide a valid email"]
+
             
 		},
         password: {
 			type: String,
-			required: true,
+			//required: true,
 			trim: true,
 			minlength: 8,
+            select: false,
+			trim: true,
+			/*validate: [
+				validator.isStrongPassword,
+				"Password must be at least 8 characters long, with at least 1 uppercase and lowercase letters and at least 1 symbol",
+			]*/
 		},
-        roles: {
+        identifier: {
+            type: String,
+            unique: true,
+            //required: true, 
+        },
+        organizationRole: {
             type:String,
-            default:["test"]
+            required:true 
         },
 
-        privileges:{
-            type:String,
-            default:"Tier 3",
-            enum:["Tier 1","Tier 2","Tier 3"]
+        applicationRole:{
+            type:Number,
+            default:3,
+            enum:[1,2,3]
         },
 
         projects:{
@@ -58,10 +69,24 @@ const userSchema = new mongoose.Schema(
               type:[Schema.Types.ObjectId],
             ref:"Task"
         },
-        isVerified: {
+        isOnboarded: {
 			type: Boolean,
+            required:true,
 			default: false,
 		},
+        active: {
+			type: Boolean,
+			default: true,
+		}
 
     },{ timestamps: true }
 )
+/*userSchema.pre('save', function (next) {
+    // Concatenate firstName and lastName to create identifier
+    if (this.firstName && this.lastName) {
+        this.identifier = `${this.firstName.toLowerCase()} ${this.lastName.toLowerCase()}`;
+    }
+    next();
+})*/
+const User = mongoose.model("User", userSchema)
+module.exports = User

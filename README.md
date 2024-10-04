@@ -10,7 +10,7 @@ Users
     -View tasks related to them 
 Project
     -Project managers(Tier 2) can create Project along with task
-    -Each Project will be headed by a project managers 
+    -Each Project will be headed by a project manager
     -Each project will onboard  employees to whom the project  concern
     -Employees concerned with the project can view and track project progress
     -Employees will receive email alerts regarding projects.
@@ -20,4 +20,25 @@ Task
     -Each task in a particular state will show(task name,Assigned by, Assigned to, due date,Project affiliated to, Description,Comments and Priority of task)
 
 
-### API Setup
+### ENV Variables
+PORT=4789
+DOMAIN_URL 
+MONGODB_URL 
+SENDER_EMAIL
+DOMAIN_URL
+JWT_SECRET_KEY
+JWT_SECRET_KEY_EXPIRY
+CLIENT_DOMAIN_URL
+CLOUDINARY_CLOUD_NAME 
+CLOUDINARY_API_KEY 
+CLOUDINARY_API_SECRET
+
+#send emails using nodemailer
+NODEMAILER_HOST
+NODEMAILER_SERVICE
+USER_MAIL_ID
+USER_SECRET
+
+### GIT Repo
+https://github.com/Juju00-code/crimson-task-manager-plus.git
+ 

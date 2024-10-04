@@ -1,53 +1,65 @@
 const mongoose = require ("mongoose");
 const validator = require("validator")
+const Schema = mongoose.Schema
 
 
 const taskSchema = new mongoose.Schema(
     {
         taskname :String,
-        assignedby:{
-            type: Schema.types.ObjectId,
-            ref: "User",
-            required: true
+        assigner:{
+            type: Schema.Types.ObjectId,
+			required: true,
+			ref: "User",
         },
-        assignedto:{
-            type: Schema.types.ObjectId,
-            ref: "User",
-            required: true
+        assignee:{
+            type: Schema.Types.ObjectId,
+			required: true,
+			ref: "User",
         },
-        assignedqa:{
-            type: Schema.types.ObjectId,
-            ref: "User",
-            required: true
+        assigneeQA:{
+            type: Schema.Types.ObjectId,
+			required: true,
+			ref: "User",
         },
         project:{
-            type: Schema.types.ObjectId,
+            type: Schema.Types.ObjectId,
             ref: "Project",
             required: true
         },
-        description: String,
-        comments: [String],
-        status:{
-            type: Number,
-			default: 1,
-			enum: [1,2,3,4,5,6],
-            //enum [Pending,InProgress]
-        },
-        Priority:{
-            type: Number,
-			default: 1,
-			enum: [1,2,3],
+        description:{
+            type:String,
+            required:true
         },
 
-        assigneddate: {
+        descriptionImg: {
+			imgUrl: String,
+			publicId: String,
+		},
+        status:{
+            type: String,
+            required:true,
+			default: "Pending",
+			enum: ["Pending","In Progress","Dev Completed","In QA Review","QA Review Completed","Completed"],
+           
+        },
+        priority:{
+            type: String,
+            required:true,
+			default: "High",
+			enum: ["Low","Medium","High"],
+        },
+        issuedDate: {
             type: Date,
             required: true
         },
 
-        duedate:{
+        dueDate:{
             type: Date,
             required: true
         }
 
     },{ timestamps: true }
 )
+
+const Task = mongoose.model("Task", taskSchema)
+module.exports = Task
