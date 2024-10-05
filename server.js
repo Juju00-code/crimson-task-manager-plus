@@ -23,6 +23,9 @@ app.use(express.urlencoded({extended:true}))
 app.use(ExpressMongoSanitize())
 app.use(cookieParser())
 
+app.get("/", (req, res) => {
+	res.send("Welcome to Crimson Task Manager Plus")
+})
 
 
 const PORT = process.env.PORT || 4789
