@@ -24,7 +24,7 @@ app.use(ExpressMongoSanitize())
 app.use(cookieParser())
 
 app.get("/", (req, res) => {
-	res.send("README.html")
+	res.send("Welcome to Crimson Task Manager Plus")
 })
 
 
